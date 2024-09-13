@@ -1,0 +1,77 @@
+name: Deploy Archi Report
+
+description: Deploy Archimate model as a static report site
+
+author: ""
+
+branding:
+  icon: book-open
+  color: blue
+
+runs:
+  using: docker
+  image: docker://ghcr.io/cognitive-singularity/archi-ci-image:latest
+  env:
+    GITHUB_TOKEN: ${{ inputs.githubToken }}
+    ARCHI_HTML_REPORT_ENABLED: ${{ inputs.archiHtmlReportEnabled }}
+    ARCHI_JASPER_REPORT_ENABLED: ${{ inputs.archiJasperReportEnabled }}
+    ARCHI_JASPER_REPORT_FORMATS: ${{ inputs.archiJasperReportFormats }}
+    ARCHI_JASPER_REPORT_TITLE: ${{ inputs.archiJasperReportTitle }}
+    ARCHI_CSV_REPORT_ENABLED: ${{ inputs.archiCsvReportEnabled }}
+    ARCHI_EXPORT_MODEL_ENABLED: ${{ inputs.archiExportModelEnabled }}
+    GITHUB_SERVER_URL: ${{ inputs.githubServerURL }}
+    GITHUB_PAGES_DOMAIN: ${{ inputs.githubPagesDomain }}
+    GITHUB_PAGES_BRANCH: ${{ inputs.githubPagesBranch }}
+    GIT_SUBTREE_PREFIX: ${{ inputs.gitSubtreePrefix }}
+    DEBUG: ${{ inputs.debugAction }}
+
+inputs:
+  githubToken:
+    description: GitHub token for accessing the git repository
+    required: true
+
+  archiHtmlReportEnabled:
+    description: Enable HTML report generation
+    required: false
+
+  archiJasperReportEnabled:
+    description: Enable Jasper report generation
+    required: false
+
+  archiJasperReportFormats:
+    description: >
+      Comma-separated formats for Jasper reports.
+      Valid values: PDF, HTML, RTF, PPT, ODT, DOCX
+    required: false
+
+  archiJasperReportTitle:
+    description: Title for the Jasper report (default is the model name)
+    required: false
+
+  archiCsvReportEnabled:
+    description: Enable CSV report generation
+    required: false
+
+  archiExportModelEnabled:
+    description: Enable export of model in *.archimate file format
+    required: false
+
+  githubServerURL:
+    description: GitHub server URL
+    required: false
+
+  githubPagesDomain:
+    description: Custom domain CNAME for GitHub Pages
+    required: false
+
+  githubPagesBranch:
+    description: Branch for storing reports used in GitHub Pages
+    required: false
+
+  gitSubtreePrefix:
+    description: Directory for storing reports in the model branch
+    required: false
+
+  debugAction:
+    description: Enable debug mode (set to 'bash -x')
+    required: false
