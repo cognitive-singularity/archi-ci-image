@@ -28,7 +28,7 @@ RUN set -eux; \
 
 # Download and extract Archi
 FROM base AS archi
-ARG ARCHI_VERSION=5.4.1
+ARG ARCHI_VERSION=5.4.2
 
 RUN set -eux; \
     curl -#Lo archi.tgz \
